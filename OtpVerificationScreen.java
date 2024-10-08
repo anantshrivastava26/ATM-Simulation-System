@@ -76,6 +76,7 @@ public class OtpVerificationScreen extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Insufficient funds.");
             }
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Invalid OTP.");
         }
