@@ -86,5 +86,33 @@ public class DatabaseConnection {
         }
         return false;
     }
+    public void updatePin(String username, String newPin) {
+        String query = "UPDATE users SET pin = ? WHERE user_id = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    
+            pstmt.setString(1, newPin);
+            pstmt.setString(2, username); // Assuming user_id is the username
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating PIN: " + e.getMessage());
+        }
+    }
+    public boolean verifyUserCredentials(String userId, String password) {
+        String query = "SELECT * FROM users WHERE user_id = ? AND password = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+    
+            pstmt.setString(1, userId);      // Verifying user_id
+            pstmt.setString(2, password);    // Verifying password
+    
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next();  // Return true if credentials match
+    
+        } catch (SQLException e) {
+            System.out.println("User credentials verification failed: " + e.getMessage());
+        }
+        return false;
+    }
     
 }
