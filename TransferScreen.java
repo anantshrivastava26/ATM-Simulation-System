@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 public class TransferScreen extends JFrame {
     private JTextField transferAmountField;
     private JTextField recipientCardField;
@@ -21,5 +23,14 @@ public class TransferScreen extends JFrame {
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> new OtpVerificationScreen(cardNumber, recipientCardField.getText(), Double.parseDouble(transferAmountField.getText())).setVisible(true));
         add(nextButton);
+
+        JButton back = new JButton("Back");
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();  // Close the ATMMenu window
+            }
+        });
+        add(back);
     }
 }
