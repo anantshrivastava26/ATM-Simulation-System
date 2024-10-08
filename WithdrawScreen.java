@@ -33,5 +33,6 @@ public class WithdrawScreen extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Insufficient funds.");
         }
+        dispose();
     }
 }
