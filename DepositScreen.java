@@ -29,5 +29,6 @@ public class DepositScreen extends JFrame {
         balance += amount;
         db.updateBalance(cardNumber, balance);
         JOptionPane.showMessageDialog(this, "Deposit successful. New balance: ₹" + balance);
+        dispose();
     }
 }
