@@ -28,6 +28,8 @@ public class DepositScreen extends JFrame {
         double balance = db.getBalance(cardNumber);
         balance += amount;
         db.updateBalance(cardNumber, balance);
+        db.logTransaction(cardNumber, "Deposit", amount);
+        db.addLoanPoints(cardNumber, (int) amount / 100);  // Award 1 point for every ₹100 deposited
         JOptionPane.showMessageDialog(this, "Deposit successful. New balance: ₹" + balance);
         dispose();
     }

@@ -29,6 +29,8 @@ public class WithdrawScreen extends JFrame {
         if (amount <= balance) {
             balance -= amount;
             db.updateBalance(cardNumber, balance);
+            db.addLoanPoints(cardNumber, (int) amount / 100);  // Award 1 point for every ₹100 withdrawn
+            db.logTransaction(cardNumber, "Withdrawal", amount);
             JOptionPane.showMessageDialog(this, "Withdrawal successful. New balance: ₹" + balance);
         } else {
             JOptionPane.showMessageDialog(this, "Insufficient funds.");
