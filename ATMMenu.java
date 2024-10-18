@@ -9,7 +9,7 @@ public class ATMMenu extends JFrame {
     public ATMMenu(String cardNumber) {
         db = new DatabaseConnection(); // Initialize the database connection
         setTitle("ATM Menu");
-        setSize(400, 500); // Adjust size to accommodate new options
+        setSize(400, 550); // Adjust size to accommodate new options
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -26,7 +26,7 @@ public class ATMMenu extends JFrame {
 
         // Main panel
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(9, 1, 10, 10)); // Updated layout for additional buttons
+        mainPanel.setLayout(new GridLayout(10, 1, 10, 10)); // Updated layout for additional buttons
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         add(mainPanel, BorderLayout.CENTER);
 
@@ -83,6 +83,20 @@ public class ATMMenu extends JFrame {
         });
         mainPanel.add(balanceButton);
 
+        // Balance Graph button
+        JButton balanceGraphButton = new JButton("Balance Graph");
+        balanceGraphButton.setFont(themeFont);
+        balanceGraphButton.setBackground(themeColor);
+        balanceGraphButton.setForeground(Color.WHITE);
+        balanceGraphButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Show the balance graph using transaction history
+                new CheckBalanceGraph(cardNumber, db).setVisible(true);
+            }
+        });
+        mainPanel.add(balanceGraphButton);
+
         // UPI button (Show image)
         JButton upiButton = new JButton("UPI");
         upiButton.setFont(themeFont);
@@ -118,27 +132,23 @@ public class ATMMenu extends JFrame {
         cryptoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CryptoConversionScreen(cardNumber,db).setVisible(true);
+                new CryptoConversionScreen(cardNumber, db).setVisible(true);
             }
         });
         mainPanel.add(cryptoButton);
 
-        // Emergency Loan button
-       // Inside the ATMMenu class
-
-// Add the Loan Points button to the main panel
-JButton loanPointsButton = new JButton("Redeem Loan Points");
-loanPointsButton.setFont(themeFont);
-loanPointsButton.setBackground(themeColor);
-loanPointsButton.setForeground(Color.WHITE);
-loanPointsButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        new LoanPointsScreen(cardNumber).setVisible(true);
-    }
-});
-mainPanel.add(loanPointsButton);
-
+        // Loan Points button
+        JButton loanPointsButton = new JButton("Redeem Loan Points");
+        loanPointsButton.setFont(themeFont);
+        loanPointsButton.setBackground(themeColor);
+        loanPointsButton.setForeground(Color.WHITE);
+        loanPointsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LoanPointsScreen(cardNumber).setVisible(true);
+            }
+        });
+        mainPanel.add(loanPointsButton);
 
         // Exit button
         JButton exitButton = new JButton("Logout");

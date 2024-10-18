@@ -81,7 +81,7 @@ public class CryptoConversionScreen extends JFrame {
                     // Update main balance
                     db.updateBalance(cardNumber, currentBalance - amountToConvert);
                     JOptionPane.showMessageDialog(null, "Conversion successful!");
-
+                    dispose();
                     // Update displayed balances
                     bitcoinBalanceLabel.setText(String.valueOf(db.getBitcoinBalance(cardNumber)));
                     ethereumBalanceLabel.setText(String.valueOf(db.getEthereumBalance(cardNumber)));
