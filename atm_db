@@ -1,0 +1,32 @@
+-- Create the database
+CREATE DATABASE atm_db;
+
+-- Use the database
+USE atm_db;
+
+-- Create the users table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,                   -- Unique user ID
+    user_id VARCHAR(50),                                 -- User ID (optional for user identification)
+    card_number VARCHAR(16) NOT NULL UNIQUE,             -- Card number (16 digits)
+    pin VARCHAR(4) NOT NULL,                             -- PIN code (4 digits)
+    password VARCHAR(50),                                -- Password for additional security
+    balance DOUBLE DEFAULT 5000,                         -- Account balance with a default value
+    bitcoin_balance DOUBLE DEFAULT 0,                    -- Bitcoin balance
+    ethereum_balance DOUBLE DEFAULT 0,                   -- Ethereum balance
+    loan_points DOUBLE DEFAULT 0                         -- Loan points
+);
+
+-- Create the transaction_history table
+CREATE TABLE transaction_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,                   -- Unique transaction ID
+    card_number VARCHAR(20),                             -- Card number linked to the transaction
+    amount DOUBLE,                                       -- Amount involved in the transaction
+    transaction_type VARCHAR(50),                        -- Type of transaction (withdraw, deposit, etc.)
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date and time of the transaction
+);
+
+-- Add foreign key constraint to link card_number in transaction_history with card_number in users
+ALTER TABLE transaction_history
+ADD CONSTRAINT fk_transaction_user
+FOREIGN KEY (card_number) REFERENCES users(card_number);
